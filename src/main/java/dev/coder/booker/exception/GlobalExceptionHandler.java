@@ -94,8 +94,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(
                         ExceptionResponse.builder()
-                                .error(exp.getMessage())
-                                .description("Internal Server Error! Contact a System administrator")
+                                .error("Something went wrong!")
+                                .description(exp.getMessage())
                                 .build()
                 );
     }

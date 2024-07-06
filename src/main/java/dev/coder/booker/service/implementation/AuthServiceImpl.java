@@ -102,8 +102,9 @@ public class AuthServiceImpl implements AuthService {
                 .orElseThrow(()->new RuntimeException("Could not find token"));
         if(LocalDateTime.now().isAfter(savedToken.getExpiresAt())){
             // Resend the token to the User
-            sendEmail(savedToken.getUser(), savedToken.getToken());
-            throw new RuntimeException("Token already expired new token was sent");
+            String tokenToResend = generateAndSaveToken(savedToken.getUser());
+            sendEmail(savedToken.getUser(), tokenToResend);
+            throw new RuntimeException("Token already expired new token was sent to your email");
         }
         var user = userRepository.findById(savedToken.getUser().getId())
                 .orElseThrow(()->new UsernameNotFoundException("User NOT Found"));
