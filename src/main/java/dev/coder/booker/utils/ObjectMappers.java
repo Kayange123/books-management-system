@@ -1,10 +1,10 @@
 package dev.coder.booker.utils;
 
-import dev.coder.booker.dto.BookRequest;
-import dev.coder.booker.dto.BookResponse;
-import dev.coder.booker.dto.BorrowedBooksResponse;
+import dev.coder.booker.dto.*;
 import dev.coder.booker.entity.book.Book;
 import dev.coder.booker.entity.book.BookTransactionHistory;
+import dev.coder.booker.entity.book.Feedback;
+import org.springframework.security.core.Authentication;
 
 public abstract class ObjectMappers {
     public static Book convertToBook(BookRequest bookRequest){
@@ -27,6 +27,7 @@ public abstract class ObjectMappers {
                 .shareable(book.isShareable())
                 .archived(book.isArchived())
                 .isbn(book.getIsbn())
+                .coverImageUrl(FileUtils.getBookCoverUrl(book.getBookCover()))
                 .owner(book.getOwner().getFullName())
                 .build();
     }
@@ -40,6 +41,27 @@ public abstract class ObjectMappers {
                 .rate(history.getBook().getRate())
                 .returned(history.isReturned())
                 .returnApproved(history.isReturnApproved())
+                .build();
+    }
+
+    public static Feedback convertToFeedback(FeedbackRequest request) {
+        return Feedback.builder()
+                .description(request.comment())
+                .rate(request.note())
+                .book(Book.builder()
+                        .id(request.bookId())
+                        .archived(false)
+                        .shareable(false)
+                        .build())
+                .build();
+    }
+
+    public static FeedbackResponse convertToFeedbackResponse(Feedback feedback, Long userId) {
+        return FeedbackResponse.builder()
+                .rating(feedback.getRate())
+                .comment(feedback.getDescription())
+                .anonymous(false)
+                .ownFeedback(feedback.getCreatedBy().equals(userId))
                 .build();
     }
 }

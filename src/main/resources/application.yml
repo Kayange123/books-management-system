@@ -1,0 +1,18 @@
+spring:
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      max-file-size: 50MB
+
+springdoc:
+  default-consumes-media-type: application/json
+application:
+  security:
+    jwt:
+      secret-key: bookerForEveryone
+      expiration: 86400000
+
+server:
+  servlet:
+    context-path: /api/v1/
