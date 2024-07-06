@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Account Verification</title>
+    <style>
+        .email-container {
+            font-family: Arial, sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+        .email-header {
+            background-color: #f7f7f7;
+            padding: 10px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .email-body {
+            padding: 20px;
+        }
+        .email-footer {
+            background-color: #f7f7f7;
+            padding: 10px;
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+<div class="email-container">
+    <div class="email-header">
+        Account Verification
+    </div>
+    <div class="email-body">
+        <p>Hello <span th:text="${username}"></span>,</p>
+        <p>Thank you for registering with us. Please click the link below to verify your email address:</p>
+        <p><a th:href="${verificationUrl}" target="_blank">Verify your email</a></p>
+        <p>Your activation code is: <strong th:text="${activationCode}"></strong></p>
+        <p>If you did not register with us, please ignore this email.</p>
+    </div>
+    <div class="email-footer">
+        &copy; 2024 Bookers. All rights reserved.
+    </div>
+</div>
+</body>
+</html>
+
