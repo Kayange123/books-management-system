@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("books")
 @RequiredArgsConstructor
+@ResponseBody
 @Tag(name = "Book")
 public class BookController {
     private final BookService bookService;

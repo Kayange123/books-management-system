@@ -62,7 +62,6 @@ public class UserEntity implements UserDetails, Principal {
         return roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
-
     }
 
     @Override
